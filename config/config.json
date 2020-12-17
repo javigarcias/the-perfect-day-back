@@ -2,8 +2,8 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "database": "TPD_DB",
+    "host": "192.168.64.3",
     "dialect": "mysql"
   },
   "test": {
