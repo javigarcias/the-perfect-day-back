@@ -35,7 +35,6 @@ const UserController = {
                 })
             }
             const token = jwt.sign({ id: user.id }, 'theperfectday', { expiresIn: '15d' });
-            console.log(token)
             user.token = token; 
             await user.save() 
             res.send(user);
@@ -43,7 +42,24 @@ const UserController = {
             console.error(error);
             res.status(500).send({ message: 'There was a problem trying to login' })
         }
-    }
+    },
+
+    async logout(req, res) {
+        try {
+
+            const user = await User.update({token: null}, {
+                where: {
+                    email: req.params.email
+                }
+            });
+            res.status(201).send({
+                message: 'Session finished',
+                user
+            });
+        } catch (error) {
+            res.status(500).send({ message: 'There was a problem trying to log out' })
+        }
+    },
 }
 
 module.exports = UserController;
