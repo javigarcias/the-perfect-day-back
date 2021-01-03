@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsToMany(models.Event, { through: models.Service });
+      this.belongsToMany(models.User, { through: models.Opinion });
+
     }
   };
   Commerce.init({
@@ -21,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     type: {
       type: DataTypes.STRING,
       allowNull:false
-    },
+    }, 
     city: {
       type: DataTypes.STRING,
       allowNull:false

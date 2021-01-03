@@ -2,13 +2,13 @@ const { Event, User, Commerce } = require('../models');
 
 const EventController = {
 
-    async createImageBitmap(req,res){
+    async create(req,res){
         try {
             const event = await Event.create({
                 name: req.body.name,
                 date: req.body.date,
                 city: req.body.city,
-                UserId: req.user.id
+                UserId: req.body.UserId
             });
             await event.addCommerce(req.body.commerce);
             res.send ({
