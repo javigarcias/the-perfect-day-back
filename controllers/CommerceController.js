@@ -5,7 +5,7 @@ const CommerceController = {
 
     async register(req,res){
         try {
-            const commerce = Commerce.create(req.body);
+            const commerce = await Commerce.create(req.body);
             res.status(201).send(commerce);
         } catch (error) {
             console.error(error);
@@ -15,7 +15,7 @@ const CommerceController = {
 
     async getAll(req,res) {
         try {
-            const commerces = Commerce.findAll();
+            const commerces = await Commerce.findAll();
             res.status(201).send(commerces);
         } catch (error) {
             console.error(error);
