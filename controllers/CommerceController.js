@@ -1,4 +1,5 @@
-const { Commerce } = require('../models');
+const { Commerce, Sequelize } = require('../models');
+const Op = Sequelize.Op;
 
 
 const CommerceController = {
@@ -22,7 +23,46 @@ const CommerceController = {
             res.status(500).send({ error,message: 'There was a problem trying to get commerces' });
             
         }
+    },
+
+    async getByName(req, res) {
+      try {
+          const commerces = await Commerce.findAll({
+              where: {
+                  name: {
+                      [Op.like]: `%${req.params.name}%`
+                  }
+              }
+          });
+          res.status(201).send(commerces);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ error,message: 'There was a problem trying to get commerces' });
+      }
+      
+    },
+
+    async getRestaurant(req, res) {
+        try {
+            const restaurants = await Commerce.findAll({ where: { type: 'restaurantes' }});
+            res.status(201).send(restaurants);        
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ error,message: 'There was a problem trying to get restaurants' });
+        }
+    },
+
+    async getPhotographers(req, res) {
+        try {
+            const photographers = await Commerce.findAll({ where: { type: 'fotografia' }});
+            res.status(201).send(photographers);        
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ error,message: 'There was a problem trying to get photographers' });
+        }
     }
+
+
 
 }
 
