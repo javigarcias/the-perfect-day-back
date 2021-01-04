@@ -17,7 +17,7 @@ const CommerceController = {
     async getAll(req,res) {
         try {
             const commerces = await Commerce.findAll();
-            res.status(201).send(commerces);
+            res.status(200).send(commerces);
         } catch (error) {
             console.error(error);
             res.status(500).send({ error,message: 'There was a problem trying to get commerces' });
@@ -34,7 +34,7 @@ const CommerceController = {
                   }
               }
           });
-          res.status(201).send(commerces);
+          res.status(200).send(commerces);
       } catch (error) {
         console.error(error);
         res.status(500).send({ error,message: 'There was a problem trying to get commerces' });
@@ -45,7 +45,7 @@ const CommerceController = {
     async getRestaurant(req, res) {
         try {
             const restaurants = await Commerce.findAll({ where: { type: 'restaurantes' }});
-            res.status(201).send(restaurants);        
+            res.status(200).send(restaurants);        
         } catch (error) {
             console.error(error);
             res.status(500).send({ error,message: 'There was a problem trying to get restaurants' });
@@ -55,10 +55,47 @@ const CommerceController = {
     async getPhotographers(req, res) {
         try {
             const photographers = await Commerce.findAll({ where: { type: 'fotografia' }});
-            res.status(201).send(photographers);        
+            res.status(200).send(photographers);        
         } catch (error) {
             console.error(error);
             res.status(500).send({ error,message: 'There was a problem trying to get photographers' });
+        }
+    },
+
+    async getStylists(req, res) {
+        try {
+            const stylists = await Commerce.findAll({ where: { type: 'belleza' }});
+            res.status(200).send(stylists);        
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ error,message: 'There was a problem trying to get stylists' });
+        }
+    },
+
+    async getFlorist(req, res) {
+        try {
+            const florist = await Commerce.findAll({ where: { type: 'floristerias' }});
+            res.status(200).send(florist);        
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ error,message: 'There was a problem trying to get stylists' });
+        }
+    },
+
+    async getTypeAndCity(req, res) {
+        try {
+            const commerces = await Commerce.findAll({
+                where: {
+                  [Op.and]: [
+                    { type: req.body.type },
+                    { city: req.body.city }
+                  ]
+                }
+              });
+              res.status(200).send(commerces);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ error,message: 'There was a problem trying to get commerces' });
         }
     }
 
