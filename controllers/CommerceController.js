@@ -42,7 +42,7 @@ const CommerceController = {
       
     },
 
-    async getRestaurant(req, res) {
+    async getRestaurants(req, res) {
         try {
             const restaurants = await Commerce.findAll({ where: { type: 'restaurantes' }});
             res.status(200).send(restaurants);        
