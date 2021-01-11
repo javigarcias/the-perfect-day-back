@@ -62,10 +62,10 @@ const CommerceController = {
         }
     },
 
-    async getStylists(req, res) {
+    async getBeauty(req, res) {
         try {
-            const stylists = await Commerce.findAll({ where: { type: 'belleza' }});
-            res.status(200).send(stylists);        
+            const beauty = await Commerce.findAll({ where: { type: 'belleza' }});
+            res.status(200).send(beauty);        
         } catch (error) {
             console.error(error);
             res.status(500).send({ error,message: 'There was a problem trying to get stylists' });

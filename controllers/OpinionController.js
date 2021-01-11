@@ -1,4 +1,6 @@
-const { Opinion } = require('../models');
+const { Opinion,Commerce, User, Sequelize } = require('../models');
+const Op = Sequelize.Op;
+
 
 const OpinionController = {
 
@@ -18,10 +20,49 @@ const OpinionController = {
             console.error(error);
             res.status(500).send({
                 error,
-                message: 'There was a problem trying to create the event'
+                message: 'There was a problem trying to create the opinion'
             })           
         }
-    }
+    },
+
+    async getByCommerce(req,res){
+        try {
+            const opinions = await Opinion.findAll({
+                where: {
+                    CommerceId: req.body.CommerceId
+                }
+            });
+            res.status(200).send(opinions);
+            
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({
+                error,
+                message: 'There was a problem trying to get the opinions'
+            })      
+        }
+    },
+    async getAll(req,res) {
+        try {
+            const opinions = await Opinion.findAll({
+                attributes:['vote', 'opinion'],
+                include: [{
+                    model:Commerce,
+                    attributes:['name', 'image']
+                },
+                {
+                    model: User,
+                    attributes: ['name']
+                }
+            ]
+            });
+            res.status(200).send(opinions);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ error,message: 'There was a problem trying to get opinions' });
+            
+        }
+    },
 
 }
 

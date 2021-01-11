@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Commerce);
+      this.belongsTo(models.User);
+
     }
   };
   Opinion.init({
