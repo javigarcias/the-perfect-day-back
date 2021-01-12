@@ -31,7 +31,11 @@ const OpinionController = {
             const opinions = await Opinion.findAll({
                 where: {
                     CommerceId: req.params.id
-                }
+                },
+                include: [{
+                    model: User,
+                    attributes:['name', 'surname']
+                }]
             });
             res.status(200).send(opinions);
             
@@ -43,17 +47,41 @@ const OpinionController = {
             })      
         }
     },
+
+    async getByUser(req,res){
+        
+        try {
+            const opinions = await Opinion.findAll({
+                where: {
+                    UserId: req.params.id
+                },
+                include: [{
+                    model: Commerce,
+                    attributes:['name', 'image']
+                }]
+            });
+            res.status(200).send(opinions);
+            
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({
+                error,
+                message: 'There was a problem trying to get the opinions'
+            })      
+        }
+    },
+
     async getAll(req,res) {
         try {
             const opinions = await Opinion.findAll({
                 attributes:['vote', 'opinion'],
                 include: [{
                     model:Commerce,
-                    attributes:['name', 'image']
+                    attributes:['name', 'city', 'image']
                 },
                 {
                     model: User,
-                    attributes: ['name']
+                    attributes: ['name', 'surname']
                 }
             ]
             });
