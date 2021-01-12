@@ -26,10 +26,11 @@ const OpinionController = {
     },
 
     async getByCommerce(req,res){
+        
         try {
             const opinions = await Opinion.findAll({
                 where: {
-                    CommerceId: req.body.CommerceId
+                    CommerceId: req.params.id
                 }
             });
             res.status(200).send(opinions);

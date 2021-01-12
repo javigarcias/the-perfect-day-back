@@ -8,7 +8,7 @@ router.get('/photographers', CommerceController.getPhotographers);
 router.get('/beauty', CommerceController.getBeauty);
 router.get('/florist', CommerceController.getFlorist);
 router.get('/name/:name', CommerceController.getByName);
-router.get('/typeAndCity', CommerceController.getTypeAndCity);
+router.post('/typeAndCity', CommerceController.getTypeAndCity);
 
 
 
